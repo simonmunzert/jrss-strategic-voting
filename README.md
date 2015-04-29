@@ -4,15 +4,15 @@ This repository provides replication materials for the paper "Determining the im
 
 ## Description of the folders
 
-bugs_simulations
-- provides WinBUGS model code (text files) to reproduce the validation and strategic voting models
-- simulation results are not uploaded due to GitHub's file size limits; if you are interested in the data, please [let us know](mailto:simon.munzert@gmail.com) and we will gladly share them with you
-
 code
 - provides R code needed for analysis
 
 data
 - provides processed constituency, geographic and survey data needed for analysis
+
+bugs_simulations
+- provides WinBUGS model code (text files) to reproduce the validation and strategic voting models
+- simulation results are not uploaded due to GitHub's file size limits; if you are interested in the data, please [let us know](mailto:simon.munzert@gmail.com) and we will gladly share them with you
 
 figures
 - provides pdfs of figures presented in the paper as well as supporting figures
