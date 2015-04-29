@@ -1,6 +1,6 @@
 # Replication materials: Determining the impact of strategic voting on election results
 
-This repository provides replication materials for the paper "Determining the impact of strategic voting on election results" by Michael Herrmann, Simon Munzert, and Peter Selb. An ungated version of the paper can be found [here](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2127621).
+This repository provides replication materials for the paper "Determining the impact of strategic voting on election results" by Michael Herrmann, Simon Munzert and Peter Selb, forthcoming in the [Journal of the Royal Statistical Society Series A](http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1467-985X). An ungated version of the paper can be found [here](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2127621).
 
 ## Description of the folders
 
@@ -11,13 +11,13 @@ code
 - provides R code needed for analysis
 
 data
-- provides processed constituency and survey data needed for analysis
+- provides processed constituency, geographic and survey data needed for analysis
 
 figures
 - provides pdfs of figures presented in the paper as well as supporting figures
 
 
-## Description of the files
+## Description of the code files
 
 01_data_preparation.r
 - pre-processes geographic and survey data 
