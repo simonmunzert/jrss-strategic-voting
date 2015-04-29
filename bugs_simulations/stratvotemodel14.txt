@@ -1,0 +1,186 @@
+model
+{
+
+## Conservative preference model
+        for(i in 1:ns)
+        {
+                for(j in 1:n[i])
+                {
+                y.conser[cumn[i]+j] ~ dbern(p.conser[cumn[i]+j])
+                logit(p.conser[cumn[i]+j]) <- beta.conser[s[i]] + v.conser[s[i]]
+                }
+			u.conser[s[i]] ~ dnorm(0, tauu.conser)
+        }
+
+        for(i in 1:N)
+        { beta.conser[i] <- b.region.conser[region[i]] + b.loginvdistsize.conser*loginvdistsize[i] + b.pension.conser*pension[i] + b.worker.conser*working[i] + b.inc.conser.conser*incumbent.conser[i] + b.inc.labour.conser*incumbent.labour[i] + b.inc.libdem.conser*incumbent.libdem[i] + u.conser[i]
+        }
+		
+		for(i in 1:N.region)
+		{ b.region.conser[i] ~ dnorm(0, tauregion.conser)
+		}
+	
+        for(i in 1:N)
+        { mu.conser[i] <- exp(beta.conser[i] + v.conser[i]) / (1 + exp(beta.conser[i] + v.conser[i]))
+        }
+
+    v.conser[1:N] ~ car.normal(nb[], weight[], num[], tauv.conser)
+
+    b.loginvdistsize.conser ~ dnorm(0,.001)
+	b.pension.conser ~ dnorm(0,.001)
+	b.worker.conser ~ dnorm(0,.001)
+	b.inc.conser.conser ~ dnorm(0,.001)
+	b.inc.labour.conser ~ dnorm(0,.001)
+	b.inc.libdem.conser ~ dnorm(0,.001)
+	tauu.conser <- pow(sigmau.conser, -2)
+	sigmau.conser ~ dunif(0,2)
+	tauv.conser <- pow(sigmav.conser, -2)
+	sigmav.conser ~ dunif(0,2)
+	tauregion.conser <- pow(sigmaregion.conser, -2)
+	sigmaregion.conser ~ dunif(0,2)
+
+## Labour preference model
+        for(i in 1:ns)
+        {
+                for(j in 1:n[i])
+                {
+                y.labour[cumn[i]+j] ~ dbern(p.labour[cumn[i]+j])
+                logit(p.labour[cumn[i]+j]) <- beta.labour[s[i]] + v.labour[s[i]]
+                }
+			u.labour[s[i]] ~ dnorm(0, tauu.labour)
+        }
+
+        for(i in 1:N)
+        { beta.labour[i] <- b.region.labour[region[i]] + b.loginvdistsize.labour*loginvdistsize[i] + b.pension.labour*pension[i] + b.worker.labour*working[i]+ b.inc.conser.labour*incumbent.conser[i] + b.inc.labour.labour*incumbent.labour[i] + b.inc.libdem.labour*incumbent.libdem[i]  + u.labour[i]
+        }
+		
+		for(i in 1:N.region)
+		{ b.region.labour[i] ~ dnorm(0, tauregion.labour)
+		}
+	
+        for(i in 1:N)
+        { mu.labour[i] <- exp(beta.labour[i] + v.labour[i]) / (1 + exp(beta.labour[i] + v.labour[i]))
+        }
+
+    v.labour[1:N] ~ car.normal(nb[], weight[], num[], tauv.labour)
+
+    b.loginvdistsize.labour ~ dnorm(0,.001)
+	b.pension.labour ~ dnorm(0,.001)
+	b.worker.labour ~ dnorm(0,.001)
+	b.inc.conser.labour ~ dnorm(0,.001)
+	b.inc.labour.labour ~ dnorm(0,.001)
+	b.inc.libdem.labour ~ dnorm(0,.001)
+	tauu.labour <- pow(sigmau.labour, -2)
+	sigmau.labour ~ dunif(0,2)
+	tauv.labour <- pow(sigmav.labour, -2)
+	sigmav.labour ~ dunif(0,2)
+	tauregion.labour <- pow(sigmaregion.labour, -2)
+	sigmaregion.labour ~ dunif(0,2)
+	
+## Libdem preference model
+        for(i in 1:ns)
+        {
+                for(j in 1:n[i])
+                {
+                y.libdem[cumn[i]+j] ~ dbern(p.libdem[cumn[i]+j])
+                logit(p.libdem[cumn[i]+j]) <- beta.libdem[s[i]] + v.libdem[s[i]]
+                }
+			u.libdem[s[i]] ~ dnorm(0, tauu.libdem)
+        }
+
+        for(i in 1:N)
+        { beta.libdem[i] <- b.region.libdem[region[i]] + b.loginvdistsize.libdem*loginvdistsize[i] + b.pension.libdem*pension[i] + b.worker.libdem*working[i]+ b.inc.conser.libdem*incumbent.conser[i] + b.inc.labour.libdem*incumbent.labour[i] + b.inc.libdem.libdem*incumbent.libdem[i]  + u.libdem[i]
+        }
+		
+		for(i in 1:N.region)
+		{ b.region.libdem[i] ~ dnorm(0, tauregion.libdem)
+		}
+	
+        for(i in 1:N)
+        { mu.libdem[i] <- exp(beta.libdem[i] + v.libdem[i]) / (1 + exp(beta.libdem[i] + v.libdem[i]))
+        }
+
+    v.libdem[1:N] ~ car.normal(nb[], weight[], num[], tauv.libdem)
+
+    b.loginvdistsize.libdem ~ dnorm(0,.001)
+	b.pension.libdem ~ dnorm(0,.001)
+	b.worker.libdem ~ dnorm(0,.001)
+	b.inc.conser.libdem ~ dnorm(0,.001)
+	b.inc.labour.libdem ~ dnorm(0,.001)
+	b.inc.libdem.libdem ~ dnorm(0,.001)
+	tauu.libdem <- pow(sigmau.libdem, -2)
+	sigmau.libdem ~ dunif(0,4)
+	tauv.libdem <- pow(sigmav.libdem, -2)
+	sigmav.libdem ~ dunif(0,4)
+	tauregion.libdem <- pow(sigmaregion.libdem, -2)
+	sigmaregion.libdem ~ dunif(0,4)
+	
+
+## Prohibit cross-model inference from strategic voting estimation model to preference estimation model
+	for (i in 1:N) {
+	mu.conser.cut[i] <- cut(mu.conser[i])
+	mu.labour.cut[i] <- cut(mu.labour[i])
+	mu.libdem.cut[i] <- cut(mu.libdem[i])	
+	}
+
+# Compute independent variable "share of preference for independents"
+	for (i in 1:N) {
+	mu.independ.cut[i] <- 1 - (mu.conser.cut[i] + mu.labour.cut[i] + mu.libdem.cut[i])	
+	}
+
+## Strategic voting model
+
+for (i in 1:N) {
+for (j in 1:P) {
+y[i,j] ~ dnorm(mu[i,j],tau[j])
+}
+
+# conservative vote share
+mu[i,1] <- 	  b0.conser
+			+ mu.conser.cut[i]
+			+ b.incent.cola*-incent.cola[i] + b.incent.laco*incent.laco[i] + b.incent.coli*-incent.coli[i] + b.incent.lico*incent.lico[i]
+			+ b.turnout.conser*turnout[i] + b.independ.conser*mu.independ.cut[i]
+			+ b.incumb.conlab*incumbent.conser[i] + b.incumb.conlib*incumbent.conser[i] - b.incumb.labcon*incumbent.labour[i] - b.incumb.libcon*incumbent.libdem[i]
+# labour vote share			
+mu[i,2] <- 	  b0.labour
+			+ mu.labour.cut[i]
+			+ b.incent.cola*incent.cola[i] + b.incent.laco*-incent.laco[i] + b.incent.lali*-incent.lali[i] + b.incent.lila*incent.lila[i]
+			+ b.turnout.labour*turnout[i] + b.independ.labour*mu.independ.cut[i]
+			+ b.incumb.labcon*incumbent.labour[i] + b.incumb.lablib*incumbent.labour[i] - b.incumb.conlab*incumbent.conser[i] - b.incumb.liblab*incumbent.libdem[i]
+# libdem vote share	
+mu[i,3] <- 	  b0.libdem
+			+ mu.libdem.cut[i]
+			+ b.incent.coli*incent.coli[i] + b.incent.lico*-incent.lico[i] + b.incent.lali*incent.lali[i] + b.incent.lila*-incent.lila[i]
+			+ b.turnout.libdem*turnout[i] + b.independ.libdem*mu.independ.cut[i]
+			+ b.incumb.libcon*incumbent.libdem[i] + b.incumb.liblab*incumbent.libdem[i] - b.incumb.conlib*incumbent.conser[i] - b.incumb.lablib*incumbent.labour[i]
+} # end of model
+	
+## priors
+b0.conser ~ dnorm(0,.001)
+b0.labour ~ dnorm(0,.001)
+b0.libdem ~ dnorm(0,.001)
+b.incent.cola ~ dnorm(0,.001)
+b.incent.coli ~ dnorm(0,.001)
+b.incent.lali ~ dnorm(0,.001)
+b.incent.laco ~ dnorm(0,.001)
+b.incent.lico ~ dnorm(0,.001)
+b.incent.lila ~ dnorm(0,.001)
+b.incumb.conlab ~ dnorm(0,.001)
+b.incumb.conlib ~ dnorm(0,.001)
+b.incumb.labcon ~ dnorm(0,.001)
+b.incumb.lablib ~ dnorm(0,.001)
+b.incumb.libcon ~ dnorm(0,.001)
+b.incumb.liblab ~ dnorm(0,.001)
+b.turnout.conser ~ dnorm(0,.001)
+b.turnout.labour ~ dnorm(0,.001)
+b.turnout.libdem ~ dnorm(0,.001)
+b.independ.conser ~ dnorm(0,.001)
+b.independ.labour ~ dnorm(0,.001)
+b.independ.libdem ~ dnorm(0,.001)
+for (j in 1:P) {
+sigma[j] ~ dunif(0,100) 
+tau[j] <- pow(sigma[j],-2)
+}
+
+
+} # end of overall model

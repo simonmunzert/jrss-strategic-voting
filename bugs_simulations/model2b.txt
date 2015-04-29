@@ -1,0 +1,118 @@
+model
+{
+
+## Conservative vote share model
+        for(i in 1:ns)
+        {
+                for(j in 1:n[i])
+                {
+                y.conser[cumn[i]+j] ~ dbern(p.conser[cumn[i]+j])
+                logit(p.conser[cumn[i]+j]) <- beta.conser[s[i]] + v.conser[s[i]]
+                }
+			u.conser[s[i]] ~ dnorm(0, tauu.conser)
+        }
+
+        for(i in 1:N)
+        { beta.conser[i] <- b.region.conser[region[i]] + b.loginvdistsize.conser*loginvdistsize[i] + b.pension.conser*pension[i] + b.worker.conser*working[i] + b.inc.conser.conser*incumbent.conser[i] + b.inc.labour.conser*incumbent.labour[i] + b.inc.libdem.conser*incumbent.libdem[i] + u.conser[i]
+        }
+		
+		for(i in 1:N.region)
+		{ b.region.conser[i] ~ dnorm(0, tauregion.conser)
+		}
+	
+        for(i in 1:N)
+        { mu.conser[i] <- exp(beta.conser[i] + v.conser[i]) / (1 + exp(beta.conser[i] + v.conser[i]))
+        }
+
+    v.conser[1:N] ~ car.normal(nb[], weight[], num[], tauv.conser)
+
+    b.loginvdistsize.conser ~ dnorm(0,.001)
+	b.pension.conser ~ dnorm(0,.001)
+	b.worker.conser ~ dnorm(0,.001)
+	b.inc.conser.conser ~ dnorm(0,.001)
+	b.inc.labour.conser ~ dnorm(0,.001)
+	b.inc.libdem.conser ~ dnorm(0,.001)
+	tauu.conser <- pow(sigmau.conser, -2)
+	sigmau.conser ~ dunif(0,2)
+	tauv.conser <- pow(sigmav.conser, -2)
+	sigmav.conser ~ dunif(0,2)
+	tauregion.conser <- pow(sigmaregion.conser, -2)
+	sigmaregion.conser ~ dunif(0,2)
+
+## Labour vote share model
+        for(i in 1:ns)
+        {
+                for(j in 1:n[i])
+                {
+                y.labour[cumn[i]+j] ~ dbern(p.labour[cumn[i]+j])
+                logit(p.labour[cumn[i]+j]) <- beta.labour[s[i]] + v.labour[s[i]]
+                }
+			u.labour[s[i]] ~ dnorm(0, tauu.labour)
+        }
+
+        for(i in 1:N)
+        { beta.labour[i] <- b.region.labour[region[i]] + b.loginvdistsize.labour*loginvdistsize[i] + b.pension.labour*pension[i] + b.worker.labour*working[i]+ b.inc.conser.labour*incumbent.conser[i] + b.inc.labour.labour*incumbent.labour[i] + b.inc.libdem.labour*incumbent.libdem[i]  + u.labour[i]
+        }
+		
+		for(i in 1:N.region)
+		{ b.region.labour[i] ~ dnorm(0, tauregion.labour)
+		}
+	
+        for(i in 1:N)
+        { mu.labour[i] <- exp(beta.labour[i] + v.labour[i]) / (1 + exp(beta.labour[i] + v.labour[i]))
+        }
+
+    v.labour[1:N] ~ car.normal(nb[], weight[], num[], tauv.labour)
+
+    b.loginvdistsize.labour ~ dnorm(0,.001)
+	b.pension.labour ~ dnorm(0,.001)
+	b.worker.labour ~ dnorm(0,.001)
+	b.inc.conser.labour ~ dnorm(0,.001)
+	b.inc.labour.labour ~ dnorm(0,.001)
+	b.inc.libdem.labour ~ dnorm(0,.001)
+	tauu.labour <- pow(sigmau.labour, -2)
+	sigmau.labour ~ dunif(0,2)
+	tauv.labour <- pow(sigmav.labour, -2)
+	sigmav.labour ~ dunif(0,2)
+	tauregion.labour <- pow(sigmaregion.labour, -2)
+	sigmaregion.labour ~ dunif(0,2)
+	
+## Libdem vote share model
+        for(i in 1:ns)
+        {
+                for(j in 1:n[i])
+                {
+                y.libdem[cumn[i]+j] ~ dbern(p.libdem[cumn[i]+j])
+                logit(p.libdem[cumn[i]+j]) <- beta.libdem[s[i]] + v.libdem[s[i]]
+                }
+			u.libdem[s[i]] ~ dnorm(0, tauu.libdem)
+        }
+
+        for(i in 1:N)
+        { beta.libdem[i] <- b.region.libdem[region[i]] + b.loginvdistsize.libdem*loginvdistsize[i] + b.pension.libdem*pension[i] + b.worker.libdem*working[i]+ b.inc.conser.libdem*incumbent.conser[i] + b.inc.labour.libdem*incumbent.labour[i] + b.inc.libdem.libdem*incumbent.libdem[i]  + u.libdem[i]
+        }
+		
+		for(i in 1:N.region)
+		{ b.region.libdem[i] ~ dnorm(0, tauregion.libdem)
+		}
+	
+        for(i in 1:N)
+        { mu.libdem[i] <- exp(beta.libdem[i] + v.libdem[i]) / (1 + exp(beta.libdem[i] + v.libdem[i]))
+        }
+
+    v.libdem[1:N] ~ car.normal(nb[], weight[], num[], tauv.libdem)
+
+    b.loginvdistsize.libdem ~ dnorm(0,.001)
+	b.pension.libdem ~ dnorm(0,.001)
+	b.worker.libdem ~ dnorm(0,.001)
+	b.inc.conser.libdem ~ dnorm(0,.001)
+	b.inc.labour.libdem ~ dnorm(0,.001)
+	b.inc.libdem.libdem ~ dnorm(0,.001)
+	tauu.libdem <- pow(sigmau.libdem, -2)
+	sigmau.libdem ~ dunif(0,4)
+	tauv.libdem <- pow(sigmav.libdem, -2)
+	sigmav.libdem ~ dunif(0,4)
+	tauregion.libdem <- pow(sigmaregion.libdem, -2)
+	sigmaregion.libdem ~ dunif(0,4)
+
+	}
