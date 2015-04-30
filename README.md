@@ -8,7 +8,11 @@ code
 - provides R code needed for analysis
 
 data
-- provides processed constituency, geographic and survey data needed for analysis
+- provides processed survey, constituency and geographic data needed for analysis
+- the survey data we use (British Social Attitudes Survey 1996, 1998, 2000, 2001, 2002 and General Election Study 1997 (Cross Section), 2001 (Cross-Section and Campaign Panel), 1992-1997 (Panel) and 1997-2001 (Panel)) are available from the [UK Data Service](http://discover.ukdataservice.ac.uk/series/?sn=200006) and the [British Election Studies Information System](http://www.besis.org/), run by the Centre for Comparative European Survey Data. These data are prepared for analysis using the Stata dofile '01_data_preparation.do' and the R script '01_data_preparation.r' and produce the Stata datafile 'prefs_9602full.dta' that is used for further analysis (but not released on GitHub)
+- constituency data stem from the [Pippa Norris Constituency Dataset](http://www.hks.harvard.edu/fs/pnorris/Data/Data.htm) and are enriched with incumbeny information
+- constituency shapefiles were provided by the [Office for National Statistics](http://www.ons.gov.uk/ons/index.html)
+- data on national-level polls to inform an alternative version of our strategic voting model are taken from [UKPollingReport.co.uk](http://ukpollingreport.co.uk/)
 
 bugs_simulations
 - provides WinBUGS model code (text files) to reproduce the validation and strategic voting models
@@ -19,6 +23,9 @@ figures
 
 
 ## Description of the code files
+
+01_data_preparation.do
+- pre-processes raw survey data from the BSA and GES
 
 01_data_preparation.r
 - pre-processes geographic and survey data 
