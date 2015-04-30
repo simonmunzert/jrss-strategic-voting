@@ -87,12 +87,12 @@ packages.r
 
 ## Author information
 
-Michael Herrmann (corresponding author)
-Simon Munzert (repository maintainer)
-Peter Selb
+Michael Herrmann (corresponding author), Simon Munzert (repository maintainer), Peter Selb
 
 University of Konstanz
+
 Department of Politics and Public Administration
+
 Box 92, D-78457 Konstanz
 
 E-mail: michael.herrmann@uni-konstanz.de
