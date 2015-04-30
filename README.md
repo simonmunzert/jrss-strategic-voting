@@ -1,11 +1,8 @@
 # Replication materials: Determining the impact of strategic voting on election results
 
-This repository provides replication materials for the paper "Determining the impact of strategic voting on election results" by Michael Herrmann, Simon Munzert, and Peter Selb. An ungated version of the paper can be found [here](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2127621).
+This repository provides replication materials for the paper "Determining the impact of strategic voting on election results" by Michael Herrmann, Simon Munzert and Peter Selb, forthcoming in the [Journal of the Royal Statistical Society Series A](http://onlinelibrary.wiley.com/journal/10.1111/(ISSN)1467-985X). An ungated version of the paper can be found [here](http://papers.ssrn.com/sol3/papers.cfm?abstract_id=2127621).
 
 ## Description of the folders
-
-bugs_simulations
-- provides WinBUGS model code (text files) and simulation results (.RData files)
 
 code
 - provides R code needed for analysis
@@ -17,11 +14,15 @@ data
 - constituency shapefiles were provided by the [Office for National Statistics](http://www.ons.gov.uk/ons/index.html)
 - data on national-level polls to inform an alternative version of our strategic voting model are taken from [UKPollingReport.co.uk](http://ukpollingreport.co.uk/)
 
+bugs_simulations
+- provides WinBUGS model code (text files) to reproduce the validation and strategic voting models
+- simulation results are not uploaded due to GitHub's file size limits; if you are interested in the data, please [let us know](mailto:simon.munzert@gmail.com) and we will gladly share them with you
+
 figures
 - provides pdfs of figures presented in the paper as well as supporting figures
 
 
-## Description of the files
+## Description of the code files
 
 01_data_preparation.do
 - pre-processes raw survey data from the BSA and GES
